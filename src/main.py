@@ -65,6 +65,7 @@ def finish_task():
 
         if len(works) != 2:
             print("Error: Must input hours and minutes as integers")
+            continue
 
         if works[0] > 24 or works[0] < 0:
             print("Error: Hours must be within range 0-24")
