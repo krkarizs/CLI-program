@@ -93,10 +93,3 @@ def finish_task():
     return logindata
 
 login = finish_task()
-
-""" print(f"Your full name: {login.name}")
-print(f"Project worked on: {login.project}")
-print(f"Comment: {login.metadata}")
-print(f"You started work at {login.starttime[3]}:{login.starttime[4]} {login.starttime[2]}/{login.starttime[1]}/{login.starttime[0]}")
-print(f"You finished work at {login.endtime[3]}:{login.endtime[4]} {login.endtime[2]}/{login.endtime[1]}/{login.endtime[0]}")
-print(f"You worked for {login.hours}h {login.minutes}m that's {login.totalhours} hours or {login.totalminutes} minutes") """
