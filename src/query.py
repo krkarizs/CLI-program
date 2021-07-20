@@ -92,4 +92,4 @@ if __name__ == '__main__':
     main.finish_task()
     logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]} {main.login.starttime[3]}:{main.login.starttime[4]}"
     logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]} {main.login.endtime[3]}:{main.login.endtime[4]}" 
-    insert(main.login.name, main.login.project(logdata_starttime, logdata_endtime, main.login.totalhours, main.login.metadata))
+    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, main.login.totalhours, main.login.metadata))
