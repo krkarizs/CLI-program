@@ -1,5 +1,6 @@
 import psycopg2
 from config import config
+import main
  
 fullname = "Niko Niinimaki"
 projectname = "Python"
@@ -88,4 +89,9 @@ def check_if_project_exist(projectname):
             con.close()
     
 if __name__ == '__main__':
-    insert(fullname, projectname, logdata)
+    login = main.finish_task()
+    logdata_starttime = f"{login.starttime[0]}-{login.starttime[1]}-{login.starttime[2]} {login.starttime[3]}:{login.starttime[4]}"
+    logdata_endtime = f"{login.endtime[0]}-{login.endtime[1]}-{login.endtime[2]} {login.endtime[3]}:{login.endtime[4]}" 
+    insert(login.name, login.project(logdata_starttime, logdata_endtime, login.totalhours, login.metadata))
+    #insert(fullname, projectname, logdata)
+    #{login.starttime[2]}/{login.starttime[1]}/{login.starttime[0]}
