@@ -1,6 +1,5 @@
 import psycopg2
 from config import config
-import main
  
 fullname = "Niko Niinimaki"
 projectname = "Python"
