@@ -3,7 +3,7 @@ from config import config
  
 fullname = "Niko Niinimaki"
 projectname = "Python"
-logdata = ("2000-12-22 01:00:00", "2000-12-24 02:00:00", 35, "Frontend project")
+logdata = ("2000-12-22 01:00:00-07", "2000-12-24 02:00:00-07", 35, "Frontend project")
  
 def insert(fullname, projectname, logdata):
     #Insert the full name into the agent table (if it is not there yet) - it is possible to add the number of work hours to this table
