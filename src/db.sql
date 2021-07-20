@@ -4,7 +4,7 @@
 CREATE TABLE agent (id SERIAL PRIMARY KEY, nimi varchar(255) NOT NULL);
 CREATE TABLE project (id SERIAL PRIMARY KEY, nimi varchar(255) NOT NULL);
 
-CREATE TABLE Logs (id SERIAL PRIMARY KEY, logintime TIMESTAMP NOT NULL, logouttime TIMESTAMP NOT NULL, worktime INT NOT NULL,
+CREATE TABLE Logs (id SERIAL PRIMARY KEY, logintime DATETIME NOT NULL, logouttime DATETIME NOT NULL, worktime INT NOT NULL,
 metadata varchar(255) NOT NULL);
 
 ALTER TABLE Logs ADD agent_id int;
