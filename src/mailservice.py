@@ -1,6 +1,7 @@
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import emailquery
 
 def readfile(filename, linenum):
     try:
@@ -20,11 +21,16 @@ def readfile(filename, linenum):
     except:
         return IndexError
 
-log_details = """<br>Niko Niinimaki, Project: CLI-Program Logged in at 21/07/2021 8:00, finished at 21/07/2021 16:00<br>
-Mikko Malm, Project: CLI-Program logged in at 21/07/2021 7:55, finished at 21/07/2021 15:55<br>
-Krisztina Karisz, Project: CLI-Program logged in at 21/07/2021 9:00, finished at 21/07/2021 17:00"""
+data = emailquery.all_timelogs()
 
-all_hours = 24
+log_details = ""
+
+for statement in data:
+  log_details += f"<br>{statement[5]}, Project: {statement[6]} Logged in at {statement[0]} {statement[1]}, finished at {statement[0]} {statement[2]}"
+
+all_hours = 0
+for minutes in data:
+  all_hours += minutes[3] / 60
 
 sender_email = readfile("mailconfig.ini", 1)
 receiver_email = readfile("mailconfig.ini", 2)
