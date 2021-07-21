@@ -4,9 +4,9 @@ import main
  
 def insert(fullname, projectname, logdata):
     #Insert the full name into the agent table (if it is not there yet) - it is possible to add the number of work hours to this table
-    add_name = "INSERT INTO agent (nimi) VALUES (%s) RETURNING id;"
+    add_name = "INSERT INTO agent (name) VALUES (%s) RETURNING id;"
     #Insert the project name into the project table (if it is not there yet) - it is possible to add the total hours spent on this project
-    add_project = "INSERT INTO project (nimi) VALUES (%s) RETURNING id;"
+    add_project = "INSERT INTO project (name) VALUES (%s) RETURNING id;"
     #Insert the login date/time, the logout date/time and the comment into the third table
     add_time = "INSERT INTO logs (logintime, logouttime, worktime, metadata, agent_id, project_id) VALUES (%s, %s, %s, %s, %s, %s)"
 
@@ -21,14 +21,14 @@ def insert(fullname, projectname, logdata):
             cursor.execute(add_name, (fullname,))
             person_id = cursor.fetchone()[0]
         else:
-            cursor.execute("SELECT id FROM agent WHERE nimi = %s;",(fullname,))
+            cursor.execute("SELECT id FROM agent WHERE name = %s;",(fullname,))
             person_id = cursor.fetchone()
             
         if not check_if_project_exist(projectname):
             cursor.execute(add_project, (projectname,))
             project_id = cursor.fetchone()[0]
         else:
-            cursor.execute("SELECT id FROM project WHERE nimi = %s;", (projectname,))
+            cursor.execute("SELECT id FROM project WHERE name = %s;", (projectname,))
             project_id = cursor.fetchone()
         
         cursor.execute(add_time, (logdata[0], logdata[1], logdata[2], logdata[3], person_id, project_id))
@@ -43,7 +43,7 @@ def insert(fullname, projectname, logdata):
             con.close()
 
 def check_if_agent_exist(fullname):
-    SQL = "SELECT COUNT(*) FROM agent WHERE agent.nimi = %s;"
+    SQL = "SELECT COUNT(*) FROM agent WHERE agent.name = %s;"
     con = None
     try:
         con = psycopg2.connect(**config())
