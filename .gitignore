@@ -4,3 +4,4 @@ src/database.ini
 weekly_query/database.ini
 .vscode/
 venv/
+google_key.json
