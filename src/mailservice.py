@@ -1,7 +1,7 @@
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import emailquery
+import query
 
 def readfile(filename, linenum):
     try:
@@ -21,7 +21,7 @@ def readfile(filename, linenum):
     except:
         return IndexError
 
-data = emailquery.all_timelogs()
+data = query.all_timelogs()
 
 log_details = ""
 

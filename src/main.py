@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 import os
+import query
 os.system('cls' if os.name == 'nt' else 'clear')
 
 #Agent class contains all data from the user when user logs their working hours.
@@ -93,4 +94,28 @@ def finish_task():
 
     return logindata
 
-login = finish_task()
+if __name__ == '__main__':
+    login = finish_task()
+    logdata_starttime = f"{login.starttime[0]}-{login.starttime[1]}-{login.starttime[2]}"
+    if login.starttime[3] < 10:
+        alku1 = f"0{login.starttime[3]}"
+    else:
+        alku1 = login.starttime[3]
+    if login.starttime[4] < 10:
+        alku2 = f"0{login.starttime[4]}"
+    else:
+        alku2 = login.starttime[4]
+    logdata_startclock = f"{alku1}:{alku2}"
+
+    logdata_endtime = f"{login.endtime[0]}-{login.endtime[1]}-{login.endtime[2]}"
+    if login.endtime[3] < 10:
+        loppu1 = f"0{login.endtime[3]}"
+    else:
+        loppu1 = login.endtime[3]
+    if login.endtime[4] < 10:
+        loppu2 = f"0{login.endtime[4]}"
+    else:
+        loppu2 = login.endtime[4]
+    logdata_startclock = f"{alku1}:{alku2}"
+    logdata_endclock = f"{loppu1}:{loppu2}"
+    query.insert(login.name, login.project, (logdata_starttime, logdata_endtime, logdata_startclock, logdata_endclock, login.totalminutes, login.metadata))
