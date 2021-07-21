@@ -2,6 +2,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import query
+import weather
 
 def readfile(filename, linenum):
     try:
@@ -176,8 +177,8 @@ html = f"""\
                             </tr>
                           </tbody>
                         </table>
-                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">There'll also be weather.</p>
-                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hope it works.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Weather report follows:</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">The temperature is {weather.temp} degrees celsius.<br>The sky appears to be {weather.cloudcover}.<br>The winds can be best described as {weather.winds}.<br>Lastly, there's {weather.rains}.</p>
                       </td>
                     </tr>
                   </table>
