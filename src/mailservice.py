@@ -20,6 +20,12 @@ def readfile(filename, linenum):
     except:
         return IndexError
 
+log_details = """<br>Niko Niinimaki, Project: CLI-Program Logged in at 21/07/2021 8:00, finished at 21/07/2021 16:00<br>
+Mikko Malm, Project: CLI-Program logged in at 21/07/2021 7:55, finished at 21/07/2021 15:55<br>
+Krisztina Karisz, Project: CLI-Program logged in at 21/07/2021 9:00, finished at 21/07/2021 17:00"""
+
+all_hours = 24
+
 sender_email = readfile("mailconfig.ini", 1)
 receiver_email = readfile("mailconfig.ini", 2)
 password = readfile("mailconfig.ini", 3)
@@ -35,7 +41,7 @@ Hi,
 How are you?
 Real Python has many great tutorials:
 www.realpython.com"""
-html = """\
+html = f"""\
 <!doctype html>
 <html>
   <head>
@@ -44,91 +50,91 @@ html = """\
     <title>Simple Transactional Email</title>
     <style>
 
-    @media only screen and (max-width: 620px) {
-      table[class=body] h1 {
+    @media only screen and (max-width: 620px) {{
+      table[class=body] h1 {{
         font-size: 28px !important;
         margin-bottom: 10px !important;
-      }
+      }}
       table[class=body] p,
             table[class=body] ul,
             table[class=body] ol,
             table[class=body] td,
             table[class=body] span,
-            table[class=body] a {
+            table[class=body] a {{
         font-size: 16px !important;
-      }
+      }}
       table[class=body] .wrapper,
-            table[class=body] .article {
+            table[class=body] .article {{
         padding: 10px !important;
-      }
-      table[class=body] .content {
+      }}
+      table[class=body] .content {{
         padding: 0 !important;
-      }
-      table[class=body] .container {
+      }}
+      table[class=body] .container {{
         padding: 0 !important;
         width: 100% !important;
-      }
-      table[class=body] .main {
+      }}
+      table[class=body] .main {{
         border-left-width: 0 !important;
         border-radius: 0 !important;
         border-right-width: 0 !important;
-      }
-      table[class=body] .btn table {
+      }}
+      table[class=body] .btn table {{
         width: 100% !important;
-      }
-      table[class=body] .btn a {
+      }}
+      table[class=body] .btn a {{
         width: 100% !important;
-      }
-      table[class=body] .img-responsive {
+      }}
+      table[class=body] .img-responsive {{
         height: auto !important;
         max-width: 100% !important;
         width: auto !important;
-      }
-    }
+      }}
+    }}
 
     /* -------------------------------------
         PRESERVE THESE STYLES IN THE HEAD
     ------------------------------------- */
-    @media all {
-      .ExternalClass {
+    @media all {{
+      .ExternalClass {{
         width: 100%;
-      }
+      }}
       .ExternalClass,
             .ExternalClass p,
             .ExternalClass span,
             .ExternalClass font,
             .ExternalClass td,
-            .ExternalClass div {
+            .ExternalClass div {{
         line-height: 100%;
-      }
-      .apple-link a {
+      }}
+      .apple-link a {{
         color: inherit !important;
         font-family: inherit !important;
         font-size: inherit !important;
         font-weight: inherit !important;
         line-height: inherit !important;
         text-decoration: none !important;
-      }
-      #MessageViewBody a {
+      }}
+      #MessageViewBody a {{
         color: inherit;
         text-decoration: none;
         font-size: inherit;
         font-family: inherit;
         font-weight: inherit;
         line-height: inherit;
-      }
-      .btn-primary table td:hover {
+      }}
+      .btn-primary table td:hover {{
         background-color: #34495e !important;
-      }
-      .btn-primary a:hover {
+      }}
+      .btn-primary a:hover {{
         background-color: #34495e !important;
         border-color: #34495e !important;
-      }
-    }
+      }}
+    }}
     </style>
   </head>
   <body class="" style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
-    <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is preheader text. Some clients will show this text as a preview.</span>
+    <span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">This is your daily report on project hours.</span>
     <table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">
       <tr>
         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">&nbsp;</td>
@@ -145,7 +151,10 @@ html = """\
                     <tr>
                       <td style="font-family: sans-serif; font-size: 14px; vertical-align: top;">
                         <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Hi there,</p>
-                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">This will contain all kinds of fun statistis.</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">This is your daily report on project hours worked.
+                        The total hours worked is: {all_hours}</p>
+                        <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;">Here are the log details:
+                        {log_details}</p>
                         <table border="0" cellpadding="0" cellspacing="0" class="btn btn-primary" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; box-sizing: border-box;">
                           <tbody>
                             <tr>
