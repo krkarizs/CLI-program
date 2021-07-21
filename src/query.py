@@ -83,28 +83,65 @@ def check_if_project_exist(projectname):
     finally:
         if con is not None:
             con.close()
-    
-if __name__ == '__main__':
-    logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}"
-    if main.login.starttime[3] < 10:
-        alku1 = f"0{main.login.starttime[3]}"
-    else:
-        alku1 = main.login.starttime[3]
-    if main.login.starttime[4] < 10:
-        alku2 = f"0{main.login.starttime[4]}"
-    else:
-        alku2 = main.login.starttime[4]
-    logdata_startclock = f"{alku1}:{alku2}"
 
-    logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}"
-    if main.login.endtime[3] < 10:
-        loppu1 = f"0{main.login.endtime[3]}"
-    else:
-        loppu1 = main.login.endtime[3]
-    if main.login.endtime[4] < 10:
-        loppu2 = f"0{main.login.endtime[4]}"
-    else:
-        loppu2 = main.login.endtime[4]
-    logdata_startclock = f"{alku1}:{alku2}"
-    logdata_endclock = f"{loppu1}:{loppu2}"
-    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, logdata_startclock, logdata_endclock, main.login.totalminutes, main.login.metadata))
+#query for all the timelogs, with Join we can also print the names and projekt names
+def all_timelogs():
+    con = None
+    try:
+        #Connect to an existing databese
+        con = psycopg2.connect(**config())
+        #Open a cursor to perform database operations
+        cursor = con.cursor()
+        SQL = "SELECT logintime AS date, startclock, endclock, worktime, metadata, agent.name AS agent, project.name AS project FROM logs FULL JOIN agent ON agent_id = agent.id FULL JOIN project ON project_id = project.id WHERE logintime = (SELECT CURRENT_DATE);"
+        cursor.execute(SQL)
+        row =[]
+        row.append(tuple(cursor.fetchone()))
+        while row is not None:
+            row.append(tuple(cursor.fetchone()))
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if con is not None:
+            con.close()
+        return row
+
+def total_worktime_agent():
+    con = None
+    try:
+        #Connect to an existing databese
+        con = psycopg2.connect(**config())
+        #Open a cursor to perform database operations
+        cursor = con.cursor()
+        SQL = "SELECT agent.name, SUM(worktime) FROM logs FULL JOIN agent ON agent_id = agent.id GROUP BY agent.name;"
+        cursor.execute(SQL)
+        row = cursor.fetchone()
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if con is not None:
+            con.close()
+
+def total_worktime():
+    con = None
+    try:
+        #Connect to an existing databese
+        con = psycopg2.connect(**config())
+        #Open a cursor to perform database operations
+        cursor = con.cursor()
+        SQL = "SELECT TO_CHAR((SUM(worktime) || ' minute')::interval, 'HH24:MI') AS all_hours FROM logs;"
+        cursor.execute(SQL)
+        row = cursor.fetchone()
+        while row is not None:
+            print(row)
+            row = cursor.fetchone()
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if con is not None:
+            con.close()
