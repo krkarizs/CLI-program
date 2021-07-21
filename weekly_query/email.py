@@ -19,9 +19,36 @@ def connect():
         if con is not None:
             con.close()
 #query for all the timelogs, with Join we can also print the names and projekt names
-def all_timelogs():
-    SQL = ""
+def all_timelogs(cursor):
+    SQL = "SELECT logintime AS date, startclock, endclock, worktime, metadata, agent.name AS agent, project.name AS project FROM logs FULL JOIN agent ON agent_id = agent.id FULL JOIN project ON project_id = project.id WHERE logintime = (SELECT CURRENT_DATE);"
+    cursor.execute(SQL)
+    colnames = [desc[0] for desc in cursor.description]
+    print(colnames)
+    row = cursor.fetchone()
+    while row is not None:
+        print(row)
+        row = cursor.fetchone()
 
-def total_worktime():
-    SQL = "SELECT agent_id, SUM(worktime) FROM Logs GROUP BY agent_id ORDER BY SUM(worktime) DESC;"
-    #query for the total working hours
+def total_worktime_agent(cursor):
+    SQL = "SELECT agent.name, SUM(worktime) FROM logs FULL JOIN agent ON agent_id = agent.id GROUP BY agent.name;"
+    cursor.execute(SQL)
+    colnames = [desc[0] for desc in cursor.description]
+    print(colnames)
+    row = cursor.fetchone()
+    while row is not None:
+        print(row)
+        row = cursor.fetchone()
+
+def total_worktime(cursor):
+    SQL = "SELECT TO_CHAR((SUM(worktime) || ' minute')::interval, 'HH24:MI') AS all_hours FROM logs;"
+    cursor.execute(SQL)
+    colnames = [desc[0] for desc in cursor.description]
+    print(colnames)
+    row = cursor.fetchone()
+    while row is not None:
+        print(row)
+        row = cursor.fetchone()
+
+if __name__ == '__main__':
+    connect()
+
