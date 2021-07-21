@@ -86,15 +86,25 @@ def check_if_project_exist(projectname):
     
 if __name__ == '__main__':
     logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}"
-    if main.login.starttime[3]<10:
-        main.login.starttime[3] = f"0{main.login.starttime[3]}"
-    if main.login.starttime[4]<10:
-        main.login.starttime[4] = f"0{main.login.starttime[4]}"
-    logdata_startclock = f"{main.login.starttime[3]}:{main.login.starttime[4]}"
-    if main.login.endtime[3]<10:
-        main.login.endtime[3] = f"0{main.login.endtime[3]}"
-    if main.login.endtime[4]<10:
-        main.login.endtime[4] = f"0{main.login.endtime[4]}"
-    logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}" 
-    logdata_endclock = f"{main.login.endtime[3]}:{main.login.endtime[4]}"
+    if main.login.starttime[3] < 10:
+        alku1 = f"0{main.login.starttime[3]}"
+    else:
+        alku1 = main.login.starttime[3]
+    if main.login.starttime[4] < 10:
+        alku2 = f"0{main.login.starttime[4]}"
+    else:
+        alku2 = main.login.starttime[4]
+    logdata_startclock = f"{alku1}:{alku2}"
+
+    logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}"
+    if main.login.endtime[3] < 10:
+        loppu1 = f"0{main.login.endtime[3]}"
+    else:
+        loppu1 = main.login.endtime[3]
+    if main.login.endtime[4] < 10:
+        loppu2 = f"0{main.login.endtime[4]}"
+    else:
+        loppu2 = main.login.endtime[4]
+    logdata_startclock = f"{alku1}:{alku2}"
+    logdata_endclock = f"{loppu1}:{loppu2}"
     insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, logdata_startclock, logdata_endclock, main.login.totalminutes, main.login.metadata))
