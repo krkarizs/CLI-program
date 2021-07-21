@@ -2,9 +2,27 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-sender_email = "email" #todo
-receiver_email = "email" #todo
-password = input("Type your password and press enter:")
+def readfile(filename, linenum):
+    try:
+        open_file = open(filename)
+    except:
+        return "File not found"
+
+    all_lines = open_file.readlines()
+    open_file.close()
+
+    import os
+    if os.stat(filename).st_size == 0:
+        return "Empty file"
+
+    try:
+        return all_lines[linenum - 1]
+    except:
+        return IndexError
+
+sender_email = readfile("mailconfig.ini", 1)
+receiver_email = readfile("mailconfig.ini", 2)
+password = readfile("mailconfig.ini", 3)
 
 message = MIMEMultipart("alternative")
 message["Subject"] = "Project hours report"
