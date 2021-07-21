@@ -86,14 +86,14 @@ def check_if_project_exist(projectname):
     
 if __name__ == '__main__':
     logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}"
-    if len(main.login.starttime[3])<2:
+    if main.login.starttime[3]<10:
         main.login.starttime[3] = f"0{main.login.starttime[3]}"
-    if len(main.login.starttime[4])<2:
+    if main.login.starttime[4]<10:
         main.login.starttime[4] = f"0{main.login.starttime[4]}"
     logdata_startclock = f"{main.login.starttime[3]}:{main.login.starttime[4]}"
-    if len(main.login.endtime[3])<2:
+    if main.login.endtime[3]<10:
         main.login.endtime[3] = f"0{main.login.endtime[3]}"
-    if len(main.login.endtime[4])<2:
+    if main.login.endtime[4]<10:
         main.login.endtime[4] = f"0{main.login.endtime[4]}"
     logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}" 
     logdata_endclock = f"{main.login.endtime[3]}:{main.login.endtime[4]}"
