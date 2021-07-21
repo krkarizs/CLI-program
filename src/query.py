@@ -8,7 +8,7 @@ def insert(fullname, projectname, logdata):
     #Insert the project name into the project table (if it is not there yet) - it is possible to add the total hours spent on this project
     add_project = "INSERT INTO project (name) VALUES (%s) RETURNING id;"
     #Insert the login date/time, the logout date/time and the comment into the third table
-    add_time = "INSERT INTO logs (logintime, logouttime, worktime, metadata, agent_id, project_id) VALUES (%s, %s, %s, %s, %s, %s)"
+    add_time = "INSERT INTO logs (logintime, logouttime, startclock, endclock, worktime, metadata, agent_id, project_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
 
     con = None
     try:
@@ -31,7 +31,7 @@ def insert(fullname, projectname, logdata):
             cursor.execute("SELECT id FROM project WHERE name = %s;", (projectname,))
             project_id = cursor.fetchone()
         
-        cursor.execute(add_time, (logdata[0], logdata[1], logdata[2], logdata[3], person_id, project_id))
+        cursor.execute(add_time, (logdata[0], logdata[1], logdata[2], logdata[3], logdata[4], logdata[5], person_id, project_id))
         #Close the connection with the database
         con.commit()
         cursor.close()
@@ -85,6 +85,8 @@ def check_if_project_exist(projectname):
             con.close()
     
 if __name__ == '__main__':
-    logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}" #{main.login.starttime[3]}:{main.login.starttime[4]}"
-    logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}" #{main.login.endtime[3]}:{main.login.endtime[4]}" 
-    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, main.login.totalminutes, main.login.metadata))
+    logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}"
+    logdata_startclock = f"{main.login.starttime[3]}:{main.login.starttime[4]}"
+    logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}" 
+    logdata_enclock = f"{main.login.endtime[3]}:{main.login.endtime[4]}"
+    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, logdata_starttime, logdata_endtime, main.login.totalminutes, main.login.metadata))
