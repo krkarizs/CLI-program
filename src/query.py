@@ -64,7 +64,7 @@ def check_if_agent_exist(fullname):
             con.close()
 
 def check_if_project_exist(projectname):
-    SQL = "SELECT COUNT(*) FROM project WHERE project.nimi = %s;"
+    SQL = "SELECT COUNT(*) FROM project WHERE project.name = %s;"
     con = None
     try:
         con = psycopg2.connect(**config())
