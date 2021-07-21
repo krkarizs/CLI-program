@@ -3,3 +3,6 @@
 database.ini
 .vscode/
 venv/
+inlinehtml.html
+mailconfig.ini
+testi.py
