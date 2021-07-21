@@ -88,5 +88,5 @@ if __name__ == '__main__':
     logdata_starttime = f"{main.login.starttime[0]}-{main.login.starttime[1]}-{main.login.starttime[2]}"
     logdata_startclock = f"{main.login.starttime[3]}:{main.login.starttime[4]}"
     logdata_endtime = f"{main.login.endtime[0]}-{main.login.endtime[1]}-{main.login.endtime[2]}" 
-    logdata_enclock = f"{main.login.endtime[3]}:{main.login.endtime[4]}"
-    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, logdata_starttime, logdata_endtime, main.login.totalminutes, main.login.metadata))
+    logdata_endclock = f"{main.login.endtime[3]}:{main.login.endtime[4]}"
+    insert(main.login.name, main.login.project, (logdata_starttime, logdata_endtime, logdata_startclock, logdata_endclock, main.login.totalminutes, main.login.metadata))
