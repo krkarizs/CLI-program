@@ -1,6 +1,5 @@
 .json
 .idea/
-database.ini
 .vscode/
 venv/
 inlinehtml.html
