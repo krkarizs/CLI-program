@@ -1,2 +1,0 @@
-project          = ""
-credentials_file = ""

@@ -1,4 +1,7 @@
-.json
+*.json
+!spec/*.json
+*.tfvars
+!spec/*.tfvars
 .idea/
 .vscode/
 venv/
@@ -6,3 +9,5 @@ inlinehtml.html
 mailconfig.ini
 testi.py
 weatherconfig.ini
+
+sudo -u postgres pip3 -y install psycopg2

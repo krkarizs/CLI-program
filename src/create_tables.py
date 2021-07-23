@@ -11,7 +11,7 @@ def create_tables():
         cursor.execute(SQL)
         SQL2 = "CREATE TABLE project (id SERIAL PRIMARY KEY, name varchar(255) NOT NULL);"
         cursor.execute(SQL2)
-        SQL3 = "CREATE TABLE Logs (id SERIAL PRIMARY KEY, logintime DATE, logouttime DATE NOT NULL, startclock TEXT NOT NULL, endclock TEXT NOT NULL, worktime INT NOT NULL, metadata varchar(255) NOT NULL);"
+        SQL3 = "CREATE TABLE Logs (id SERIAL PRIMARY KEY, logintime DATE, logouttime DATE NOT NULL, startclock TEXT NOT NULL, endclock TEXT NOT NULL, worktime INT NOT NULL, temperature REAL, metadata varchar(255) NOT NULL);"
         cursor.execute(SQL3)
         SQL4 = "ALTER TABLE Logs ADD agent_id int;"
         cursor.execute(SQL4)

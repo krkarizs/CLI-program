@@ -8,16 +8,16 @@ terraform {
 }
 
 provider "google" {
-  credentials = file("C:\\Users\\KrisztinaKarizs\\Documents\\vko5-projekti\\CLI-program\\group1-key.json")
+  credentials = file(var.credentials_file)
 
-  project = "group1-320407"
-  region  = "us-central1"
-  zone    = "us-central1-c"
+  project = var.project
+  region  = var.region
+  zone    = var.zone
 }
 
 //Create Storage Bucket
-resource "google_storage_bucket" "server-files" {
-  name          = "cli-server-files"
+resource "google_storage_bucket" "server-filez" {
+  name          = "cli-server-filez"
   location      = "US"
   force_destroy = true
 
@@ -37,57 +37,65 @@ resource "google_storage_bucket" "server-files" {
 resource "google_storage_bucket_object" "server-files" {
   name       = "config.py"
   source     = "config.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files2" {
   name       = "query.py"
   source     = "query.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files3" {
   name       = "main.py"
   source     = "main.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files4" {
   name       = "database.ini"
   source     = "database.ini"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files5" {
   name       = "weatherconfig.ini"
   source     = "weatherconfig.ini"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files6" {
   name       = "mailconfig.ini"
   source     = "mailconfig.ini"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files7" {
   name       = "mailservice.py"
   source     = "mailservice.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files8" {
   name       = "weather.py"
   source     = "weather.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
 resource "google_storage_bucket_object" "server-files9" {
   name       = "create_tables.py"
   source     = "create_tables.py"
-  bucket     = "cli-server-files"
-  depends_on = [google_storage_bucket.server-files]
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
 }
+
+resource "google_storage_bucket_object" "server-files10" {
+  name       = "configcron.py"
+  source     = "configcron.py"
+  bucket     = "cli-server-filez"
+  depends_on = [google_storage_bucket.server-filez]
+}
+
 
 //Create VM instance
 resource "google_compute_instance" "database-server" {
@@ -96,7 +104,7 @@ resource "google_compute_instance" "database-server" {
 
   tags       = ["http-server", "https-server"]
 
-  depends_on = [google_storage_bucket_object.server-files]
+  depends_on = [google_storage_bucket_object.server-files2]
 
   boot_disk {
     initialize_params {

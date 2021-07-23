@@ -1,6 +1,6 @@
 import psycopg2
 from config import config
-import main
+import weather
  
 def insert(fullname, projectname, logdata):
     #Insert the full name into the agent table (if it is not there yet) - it is possible to add the number of work hours to this table
@@ -8,7 +8,7 @@ def insert(fullname, projectname, logdata):
     #Insert the project name into the project table (if it is not there yet) - it is possible to add the total hours spent on this project
     add_project = "INSERT INTO project (name) VALUES (%s) RETURNING id;"
     #Insert the login date/time, the logout date/time and the comment into the third table
-    add_time = "INSERT INTO logs (logintime, logouttime, startclock, endclock, worktime, metadata, agent_id, project_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+    add_time = "INSERT INTO logs (logintime, logouttime, startclock, endclock, worktime, metadata, temperature, agent_id, project_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
 
     con = None
     try:
@@ -31,7 +31,7 @@ def insert(fullname, projectname, logdata):
             cursor.execute("SELECT id FROM project WHERE name = %s;", (projectname,))
             project_id = cursor.fetchone()
         
-        cursor.execute(add_time, (logdata[0], logdata[1], logdata[2], logdata[3], logdata[4], logdata[5], person_id, project_id))
+        cursor.execute(add_time, (logdata[0], logdata[1], logdata[2], logdata[3], logdata[4], logdata[5], weather.temp, person_id, project_id))
         #Close the connection with the database
         con.commit()
         cursor.close()
@@ -92,7 +92,7 @@ def all_timelogs():
         con = psycopg2.connect(**config())
         #Open a cursor to perform database operations
         cursor = con.cursor()
-        SQL = "SELECT logintime AS date, startclock, endclock, worktime, metadata, agent.name AS agent, project.name AS project FROM logs FULL JOIN agent ON agent_id = agent.id FULL JOIN project ON project_id = project.id WHERE logintime = (SELECT CURRENT_DATE);"
+        SQL = "SELECT logintime AS date, startclock, endclock, worktime, metadata, agent.name AS agent, project.name AS project, temperature FROM logs FULL JOIN agent ON agent_id = agent.id FULL JOIN project ON project_id = project.id WHERE logintime = (SELECT CURRENT_DATE);"
         cursor.execute(SQL)
         row =[]
         row.append(tuple(cursor.fetchone()))
