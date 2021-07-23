@@ -22,12 +22,13 @@ def readfile(filename, linenum):
     except:
         return IndexError
 
+#get all log entries from SQL
 data = query.all_timelogs()
 
 log_details = ""
 
 for statement in data:
-  log_details += f"<br>{statement[5]}, Project: {statement[6]} Logged in at {statement[0]} {statement[1]}, finished at {statement[0]} {statement[2]}"
+  log_details += f"<br>{statement[5]}, Project: {statement[6]} Logged in at {statement[0]} {statement[1]}, finished at {statement[0]} {statement[2]}. Temperature was {statement[7]}"
 
 all_hours = 0
 for minutes in data:

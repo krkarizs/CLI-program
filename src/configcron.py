@@ -1,13 +1,13 @@
 from crontab import CronTab
 
-cron = CronTab(tabfile='/etc/crontab', user='sevenke')  # system users cron
+cron = CronTab(user='root')  # system users cron
 # cron  = CronTab(user=True)  # current users cron
 # cron  = CronTab(user='username')  # other users cron
 for job in cron:
     print(job)
 
-job = cron.new(command='cd /home/sevenke && sudo -u postgres python3 mailservice.py', comment='send mail once a day')
-job.minute.every(1)
+job = cron.new(command='cd sevenke /usr/bin/python3 /home/sevenke/mailservice.py', comment='send mail once a day')
+job.setall('0 8 * * *')
 cron.write()
 
 #Install ron before executing this file: sudo apt install cron
