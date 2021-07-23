@@ -6,7 +6,7 @@ cron = CronTab(user='root')  # system users cron
 for job in cron:
     print(job)
 
-job = cron.new(command='cd sevenke /usr/bin/python3 /home/sevenke/mailservice.py', comment='send mail once a day')
+job = cron.new(command='cd /home/sevenke && sudo -u postgres /usr/bin/python3 /home/sevenke/mailservice.py', comment='send mail once a day')
 job.setall('0 8 * * *')
 cron.write()
 
