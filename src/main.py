@@ -40,7 +40,7 @@ class Agent:
     def __str__(self):
         return f"Agent {self.name}"
 
-
+# function to run to gather the information from the user
 def finish_task():
     #Get username, handle errors if username is invalid. Username can't be null.
     while True:

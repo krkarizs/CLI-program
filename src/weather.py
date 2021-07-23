@@ -1,5 +1,6 @@
 import requests
 
+#readfile function to open the ini file to get the api keys
 def readfile(filename, linenum):
     try:
         open_file = open(filename)

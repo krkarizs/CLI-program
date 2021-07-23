@@ -16,10 +16,10 @@ gsutil cp gs://cli-server-filez/mailconfig.ini /home/sevenke/mailconfig.ini
 gsutil cp gs://cli-server-filez/mailservice.py /home/sevenke/mailservice.py
 gsutil cp gs://cli-server-filez/weather.py /home/sevenke/weather.py
 gsutil cp gs://cli-server-filez/create_tables.py /home/sevenke/create_tables.py
-
 sudo systemctl restart postgresql
 sudo -u postgres createdb workplace
 sudo -u postgres yes | pip3 install psycopg2
 sudo -u postgres python3 /home/sevenke/create_tables.py
 sudo -u postgres pip3 install python-crontab
 sudo python3 /home/sevenke/cronconfig.py
+sudo echo 'cd /home/sevenke && sudo -u postgres python3 main.py' &>>/etc/bash.bashrc 
